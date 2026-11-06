@@ -67,32 +67,40 @@ export function BreakdownList({
   title: string;
   data: { name: string; value: number }[];
 }) {
-  const total = data.reduce((a, b) => a + b.value, 0) || 1;
-  const max = Math.max(...data.map((d) => d.value), 1);
+  const validData = data.filter((d) => d.value > 0);
+  const total = validData.reduce((a, b) => a + b.value, 0);
+  const max = Math.max(...validData.map((d) => d.value), 1);
+
   return (
     <section className="panel">
       <div className="flex items-center justify-between border-b px-5 py-3">
         <h3 className="text-sm font-medium">{title}</h3>
         <span className="eyebrow">Share</span>
       </div>
-      <ul className="space-y-0.5 p-3">
-        {data.map((d) => (
-          <li
-            key={d.name}
-            className="relative flex items-center justify-between rounded-sm px-2 py-1.5 text-sm"
-          >
-            <span
-              className="absolute inset-y-0 left-0 rounded-sm bg-signal-soft"
-              style={{ width: `${(d.value / max) * 100}%` }}
-            />
-            <span className="relative">{d.name}</span>
-            <span className="relative flex gap-3">
-              <span className="num text-muted-foreground">{d.value.toLocaleString()}</span>
-              <span className="num w-12 text-right">{((d.value / total) * 100).toFixed(1)}%</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {!validData.length ? (
+        <p className="p-6 text-center text-xs text-muted-foreground">
+          No traffic data recorded yet.
+        </p>
+      ) : (
+        <ul className="space-y-0.5 p-3">
+          {validData.map((d) => (
+            <li
+              key={d.name}
+              className="relative flex items-center justify-between rounded-sm px-2 py-1.5 text-sm"
+            >
+              <span
+                className="absolute inset-y-0 left-0 rounded-sm bg-signal-soft"
+                style={{ width: `${(d.value / max) * 100}%` }}
+              />
+              <span className="relative">{d.name}</span>
+              <span className="relative flex gap-3">
+                <span className="num text-muted-foreground">{d.value.toLocaleString()}</span>
+                <span className="num w-12 text-right">{((d.value / total) * 100).toFixed(1)}%</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

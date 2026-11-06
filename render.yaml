@@ -15,4 +15,3 @@ services:
       mountPath: /app/data
       sizeGB: 1
     healthCheckPath: /api/v1/links
-

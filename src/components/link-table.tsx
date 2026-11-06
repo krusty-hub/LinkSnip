@@ -32,7 +32,14 @@ export function LinkTable({ links, compact = false }: { links: LinkRecord[]; com
   }, []);
 
   if (!links.length) {
-    return <p className="px-5 py-10 text-center text-sm text-muted-foreground">No links match.</p>;
+    return (
+      <div className="px-5 py-12 text-center">
+        <p className="text-sm font-medium">No links created yet</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Paste a destination URL above to generate your first short link.
+        </p>
+      </div>
+    );
   }
   return (
     <div className="overflow-x-auto">
