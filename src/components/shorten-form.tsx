@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CaretDown, Copy, Check } from "@phosphor-icons/react";
 import { toast } from "sonner";

@@ -54,8 +54,8 @@ export const Route = createFileRoute("/api/v1/shorten")({
 
         const result = createLink({
           longUrl: body.long_url,
-          alias: body.custom_alias,
-          expiresAt: body.expires_at,
+          alias: body.custom_alias || undefined,
+          expiresAt: body.expires_at ?? null,
         });
 
         if (!result.success) {
