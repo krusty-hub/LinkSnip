@@ -1,0 +1,12 @@
+node_modules
+.output
+dist
+data
+*.log
+.git
+.github
+.vscode
+.idea
+Dockerfile
+.dockerignore
+
